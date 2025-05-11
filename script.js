@@ -1,3 +1,4 @@
+let nextLetterTimeout;
 let currentLetter = 'A';
 let isRunning = false;
 let lastUpdateTime = 0;
@@ -20,9 +21,29 @@ function setup() {
   stopButton.style('color', 'white');
   stopButton.mousePressed(stopSecventa);
   
-//   letterColor = randomColor();
+  letterColor = randomColor();
 }
 
+function updateLetter() {
+  if (currentLetter === 'Z') {
+    currentLetter = 'A';
+  } else {
+    currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+  }
+  letterColor = randomColor();
+}
+
+
+function startSecventa() {
+  if (!isRunning) {
+    isRunning = true;
+    lastUpdateTime = millis();
+  }
+}
+
+function stopSecventa() {
+  isRunning = false;
+}
 
 
 function draw() {
@@ -38,4 +59,6 @@ function draw() {
 }
 
 
-
+function randomColor() {
+  return color(random(100, 255), random(100, 255), random(100, 255));
+}
